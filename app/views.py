@@ -30,16 +30,20 @@ def about():
 def contact():
     """Renders the contact form page"""
     contactform = ContactForm()
-    if contactform.validate_on_submit():
-        firstname = contactform.firstname.data
-        lastname = contactform.lastname.data
-        email = contactform.email.data
-        subject = contactform.subject.data
-        messsage = contactform.txtarea.data
-        """msg = Message("Your Subject", sender=("Senders Name",
-        "from@example.com"),recipients=["to@example.com"])
-        msg.body = 'This is the body of the message'
-        mail.send(msg)"""
+    if request.method == 'POST':
+        if contactform.validate_on_submit():
+            firstname = contactform.firstname.data
+            lastname = contactform.lastname.data
+            email = contactform.email.data
+            subject = contactform.subject.data
+            message = contactform.txtarea.data
+            msg = Message(subject, sender=(firstname,
+            email),recipients=["to@example.com"])
+            msg.body = message
+            mail.send(msg)
+
+            flash('Message sent successfully')
+            return redirect(url_for('home'))
     return render_template('contact.html', form=contactform )
 
 

@@ -4,6 +4,7 @@
     <h1>Contact</h1>
     <p>Leave your name, email and a message and i'll get back to you.</p>
     <form method="post" action="{{ url_for('contact') }}">
+        {{ form.csrf_token }}
         <div class="form-group">
             {{form.firstname.label }} {{ form.firstname }}
         </div>
@@ -19,7 +20,7 @@
             {{form.subject.label }} {{ form.subject }}
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="t-area">
             {{ form.txtarea.label }} {{ form.txtarea }}
         </div>
         <button type="submit">Submit</button>
